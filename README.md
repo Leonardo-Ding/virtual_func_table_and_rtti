@@ -1,4 +1,4 @@
-An example to show details of c++ virtual function table and rtti information in memory layout.
+## An example to show details of c++ virtual function table and rtti information in c++ object memory layout.
 
 c++在类的实例中第一个存储位置存放着虚函数表指针（如果是单继承关系类，类实例第一个8 byte位置存放一个虚函数表指针；如果是多重继承关系n个父类，类实例存放n个8 byte的虚函数表指针），该虚函数表指针指向虚函数表（虚函数表是虚函数数组，按照派生关系和声明顺序在编译时按顺序排列好），虚函数表数组索引的-1位置存放着类的RTTI信息，即一个type_info* 类型的指针，该指针中的name()存放着由编译器name mangling后的类的名字，如果多重继承场景，n个虚函数表的内容虽然完全不同，但每个虚函数表的-1索引处存放的type_info* 指针都指向同一个type_info对象，这样可以能保证程序在运行时方便查找对象之间的继承关系；
 类实例的虚函数表在类继承中如果有子类重写父类虚函数的操作，在编译时子类的虚函数表中相应的虚函数的地址会被相应的替换掉；
